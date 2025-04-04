@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morning Ritual</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .ritual-section {
+            display: flex;
+            justify-content: space-between;
+            gap: 60px;
+        }
+        
+        .content-left {
+            flex: 1;
+            max-width: 500px;
+            padding-top: 10px;
+        }
+        
+        .content-right {
+            flex: 1;
+            max-width: 550px;
+            position: relative;
+        }
+        
+        .main-title {
+            font-size: 42px;
+            font-weight: 500;
+            color: #333;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 40px;
+        }
+        
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .step {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .step-number {
+            font-size: 60px;
+            font-weight: 300;
+            color: #ddd;
+            line-height: 1;
+            min-width: 50px;
+        }
+        
+        .step-content {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .step-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #d9b45b;
+            margin-bottom: 8px;
+        }
+        
+        .step-description {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .video-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .play-button:hover {
+            background-color: rgba(255, 255, 255, 1);
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+        
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 12px 0 12px 20px;
+            border-color: transparent transparent transparent #333;
+            margin-left: 5px;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #d9b45b;
+            color: #333;
+            padding: 14px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-top: 40px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background-color: #c9a44b;
+        }
+        
+        .arrow-icon {
+            margin-left: 10px;
+        }
+        
+        @media (max-width: 900px) {
+            .ritual-section {
+                flex-direction: column;
+            }
+            
+            .content-right {
+                order: -1;
+                max-width: 100%;
+                aspect-ratio: 16/9;
+            }
+            
+            .content-left {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="ritual-section">
+        <div class="content-left">
+            <h1 class="main-title">Your morning ritual, made to awaken your mind.</h1>
+            <p class="subtitle">Transform your mornings with a simple, potent, and powerful ritual that fuels your day.</p>
+            
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Prep your favorite drink</h3>
+                        <p class="step-description">Start your morning with your favorite beverage, whether it's a nutrient-packed smoothie or a warm cup of tea.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Take a scoop</h3>
+                        <p class="step-description">Simply add one potent scoop packed with x10 the potency to boost energy, enhance clarity, and support wellness all day.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Customize and mix</h3>
+                        <p class="step-description">Personalize your morning drink. Stir well for a perfectly blended, nutrient-rich beverage that awakens your mind and prepares you for the day.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="cta-button">
+                See how people are using Alcami
+                <span class="arrow-icon">→</span>
+            </button>
+        </div>
+        
+        <div class="content-right">
+            <div class="video-container">
+                <img src="./assets/images/ritual.png" alt="Morning Ritual Video" class="video-thumbnail" id="video-thumbnail">
+                <div class="play-button" id="play-button">
+                    <div class="play-icon"></div>
+                </div>
+                <video id="ritual-video" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // Video play functionality
+        const playButton = document.getElementById('play-button');
+        const videoThumbnail = document.getElementById('video-thumbnail');
+        const ritualVideo = document.getElementById('ritual-video');
+        
+        playButton.addEventListener('click', function() {
+            // Hide thumbnail and show video
+            videoThumbnail.style.display = 'none';
+            ritualVideo.style.display = 'block';
+            
+            // Hide play button
+            playButton.style.display = 'none';
+            
+            // Play the video
+            ritualVideo.play();
+        });
+        
+        // Reset when video ends
+        ritualVideo.addEventListener('ended', function() {
+            videoThumbnail.style.display = 'block';
+            ritualVideo.style.display = 'none';
+            playButton.style.display = 'flex';
+        });
+    </script>
+</body>
+</html>

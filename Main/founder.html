@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From the Founders</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .founder-section {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            aspect-ratio: 16/9;
+        }
+        
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 20px;
+        }
+        
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            border-radius: 20px;
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background-color: rgba(255, 195, 84, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .play-button:hover {
+            background-color: rgba(255, 195, 84, 1);
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+        
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 12px 0 12px 20px;
+            border-color: transparent transparent transparent white;
+            margin-left: 5px;
+        }
+        
+        .content-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 60px;
+        }
+        
+        .title-container {
+            flex: 1;
+        }
+        
+        .section-title {
+            font-size: 42px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .about-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #d9b45b;
+            color: #333;
+            padding: 14px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .about-button:hover {
+            background-color: #c9a44b;
+        }
+        
+        .arrow-icon {
+            margin-left: 10px;
+        }
+        
+        .description-container {
+            flex: 1;
+            font-size: 18px;
+            color: #555;
+            line-height: 1.7;
+            max-width: 550px;
+        }
+        
+        @media (max-width: 768px) {
+            .content-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .description-container {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="founder-section">
+        <div class="video-container" id="video-container">
+            <img src="https://images.unsplash.com/photo-1585468274952-66591eb14165?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1032&q=80" alt="Founder by the lake" class="video-thumbnail" id="video-thumbnail">
+            <video id="founder-video" controls>
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="play-button" id="play-button">
+                <div class="play-icon"></div>
+            </div>
+        </div>
+        
+        <div class="content-container">
+            <div class="title-container">
+                <h2 class="section-title">From the Founders</h2>
+                <button class="about-button">
+                    About Us
+                    <span class="arrow-icon">→</span>
+                </button>
+            </div>
+            
+            <div class="description-container">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consectetur adipiscing elit, sed do eiusmod</p>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // Video play functionality
+        const playButton = document.getElementById('play-button');
+        const videoThumbnail = document.getElementById('video-thumbnail');
+        const founderVideo = document.getElementById('founder-video');
+        
+        playButton.addEventListener('click', function() {
+            // Hide thumbnail and show video
+            videoThumbnail.style.display = 'none';
+            founderVideo.style.display = 'block';
+            
+            // Hide play button
+            playButton.style.display = 'none';
+            
+            // Play the video
+            founderVideo.play();
+        });
+        
+        // Reset when video ends
+        founderVideo.addEventListener('ended', function() {
+            videoThumbnail.style.display = 'block';
+            founderVideo.style.display = 'none';
+            playButton.style.display = 'flex';
+        });
+    </script>
+</body>
+</html>

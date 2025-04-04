@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alcami Navigation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            /* background-color: #f0f0f0; */
+            color: #333;
+        }
+        
+        .header {
+            /* background-color: #eaeaea; */
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .logo {
+            height: 40px;
+        }
+        
+        .logo img {
+            height: 100%;
+        }
+        
+        .nav-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .main-nav {
+            display: flex;
+            list-style: none;
+            margin-right: 30px;
+        }
+        
+        .nav-item {
+            margin: 0 15px;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: #d9b45b;
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-icon {
+            margin-left: 5px;
+            font-size: 10px;
+        }
+        
+        .search-icon {
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        
+        .try-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #d9b45b;
+            color: #333;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .try-button:hover {
+            background-color: #c9a44b;
+        }
+        
+        .arrow-icon {
+            margin-left: 10px;
+        }
+        
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 900px) {
+            .header {
+                padding: 15px 20px;
+            }
+            
+            .main-nav {
+                display: none;
+            }
+            
+            .search-icon {
+                margin-right: 15px;
+            }
+            
+            .mobile-menu-button {
+                display: block;
+                margin-right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="https://dummyimage.com/150x40/fff/333&text=ALCAMI" alt="Alcami Logo">
+        </div>
+        
+        <div class="nav-container">
+            <button class="mobile-menu-button">☰</button>
+            
+            <ul class="main-nav">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link">Shop <span class="dropdown-icon">▼</span></a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Elements</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            
+            <div class="search-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21 21L16.65 16.65" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            
+            <a href="#" class="try-button">
+                Try Alcami
+                <span class="arrow-icon">→</span>
+            </a>
+        </div>
+    </header>
+</body>
+</html>
