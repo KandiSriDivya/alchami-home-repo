@@ -1,218 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alcami Hero Section</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
 
-      body {
-        font-family: "Arial", sans-serif;
-        color: #333;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alcami Hero Section</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: "Arial", sans-serif;
+      color: #333;
+    }
+
+    .hero-section {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      /* background-color: #eaeaea; */
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      flex: 1;
+      max-width: 500px;
+      z-index: 2;
+    }
+
+    .rating-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #EDEDED;
+      border-radius: 50px;
+      font-size: 16px;
+      color: #333;
+      width: 518;
+      height: 46;
+      padding-top: 5px;
+      padding-right: 16px;
+      padding-bottom: 5px;
+      padding-left: 8px;
+      gap: 8px;
+
+    }
+
+    .rating-badge>div {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 50px;
+      background: white;
+      /* Remove extra white background */
+    }
+
+    .star-icon {
+      color: #d9b45b;
+      margin-right: 5px;
+    }
+
+    .hero-title {
+      font-size: 48px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 40px;
+      line-height: 1.2;
+    }
+
+    .stats-container {
+      display: flex;
+      gap: 60px;
+      margin-bottom: 40px;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-number {
+      font-size: 64px;
+      font-weight: 500;
+      color: #d9b45b;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.4;
+    }
+
+    .mg-label {
+      font-size: 24px;
+      vertical-align: bottom;
+      color: #d9b45b;
+    }
+
+    .shop-button {
+      display: inline-flex;
+      align-items: center;
+      background-color: #d9b45b;
+      color: #333;
+      padding: 14px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .shop-button:hover {
+      background-color: #c9a44b;
+    }
+
+    .arrow-icon {
+      margin-left: 10px;
+    }
+
+    .hero-image {
+      flex: 1;
+      max-width: 600px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .tagline-banner {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      /* background-color: rgba(255, 255, 255, 0.9); */
+      border: 1px solid #d9b45b;
+      border-radius: 50px;
+      padding: 15px 40px;
+      font-size: 20px;
+      font-weight: 500;
+      color: #333;
+      text-align: center;
+      z-index: 3;
+      width: 80%;
+      max-width: 800px;
+    }
+
+    @media (max-width: 900px) {
       .hero-section {
-        width: 100%;
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 40px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        /* background-color: #eaeaea; */
-        position: relative;
-        overflow: hidden;
+        flex-direction: column;
+        padding: 30px 20px 80px;
       }
 
       .hero-content {
-        flex: 1;
-        max-width: 500px;
-        z-index: 2;
-      }
-
-      .rating-badge {
-        display: inline-flex;
-        align-items: center;
-        background-color: white;
-        padding: 8px 12px;
-        border-radius: 50px;
-        margin-bottom: 20px;
-        font-size: 14px;
-      }
-
-      .star-icon {
-        color: #d9b45b;
-        margin-right: 5px;
-      }
-
-      .hero-title {
-        font-size: 48px;
-        font-weight: 500;
-        color: #333;
+        max-width: 100%;
         margin-bottom: 40px;
-        line-height: 1.2;
+        text-align: center;
       }
 
       .stats-container {
-        display: flex;
-        gap: 60px;
-        margin-bottom: 40px;
-      }
-
-      .stat-item {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .stat-number {
-        font-size: 64px;
-        font-weight: 500;
-        color: #d9b45b;
-        line-height: 1;
-        margin-bottom: 10px;
-      }
-
-      .stat-label {
-        font-size: 16px;
-        color: #555;
-        line-height: 1.4;
-      }
-
-      .mg-label {
-        font-size: 24px;
-        vertical-align: bottom;
-        color: #d9b45b;
-      }
-
-      .shop-button {
-        display: inline-flex;
-        align-items: center;
-        background-color: #d9b45b;
-        color: #333;
-        padding: 14px 30px;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 16px;
-        transition: background-color 0.3s;
-        border: none;
-        cursor: pointer;
-      }
-
-      .shop-button:hover {
-        background-color: #c9a44b;
-      }
-
-      .arrow-icon {
-        margin-left: 10px;
+        justify-content: center;
       }
 
       .hero-image {
-        flex: 1;
-        max-width: 600px;
-        position: relative;
-        z-index: 1;
-      }
-
-      .hero-image img {
-        width: 100%;
-        height: auto;
-        object-fit: contain;
+        max-width: 100%;
       }
 
       .tagline-banner {
-        position: absolute;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        /* background-color: rgba(255, 255, 255, 0.9); */
-        border: 1px solid #d9b45b;
-        border-radius: 50px;
-        padding: 15px 40px;
-        font-size: 20px;
-        font-weight: 500;
-        color: #333;
-        text-align: center;
-        z-index: 3;
-        width: 80%;
-        max-width: 800px;
+        width: 90%;
+        font-size: 16px;
+        padding: 12px 20px;
       }
+    }
+  </style>
+</head>
 
-      @media (max-width: 900px) {
-        .hero-section {
-          flex-direction: column;
-          padding: 30px 20px 80px;
-        }
-
-        .hero-content {
-          max-width: 100%;
-          margin-bottom: 40px;
-          text-align: center;
-        }
-
-        .stats-container {
-          justify-content: center;
-        }
-
-        .hero-image {
-          max-width: 100%;
-        }
-
-        .tagline-banner {
-          width: 90%;
-          font-size: 16px;
-          padding: 12px 20px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <section class="hero-section">
-      <div class="hero-content">
-        <div class="rating-badge">
+<body>
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="rating-badge">
+        <div>
           <span class="star-icon">★</span>
           <span>4.8 star rating</span>
-          <span style="margin: 0 8px">•</span>
-          <span>awarded the top adaptogen blend in the world</span>
         </div>
-
-        <h1 class="hero-title">Achieve your highest self.</h1>
-
-        <div class="stats-container">
-          <div class="stat-item">
-            <div class="stat-number">10x</div>
-            <div class="stat-label">concentration</div>
-          </div>
-
-          <div class="stat-item">
-            <div class="stat-number">9</div>
-            <div class="stat-label">powerful<br />ingredients</div>
-          </div>
-
-          <div class="stat-item">
-            <div class="stat-number">1000<span class="mg-label">mg</span></div>
-            <div class="stat-label">of Adaptogens<br />per dose</div>
-          </div>
-        </div>
-
-        <a href="#" class="shop-button">
-          Shop Now
-          <span class="arrow-icon">→</span>
-        </a>
+        <span>awarded the top adaptogen blend in the world</span>
       </div>
 
-      <div class="hero-image">
-        <img
-          src="../assets/images/hero-section.png"
-          alt="Alcami Products with Ingredients"
-        />
+      <h1 class="hero-title">Achieve your highest self.</h1>
+
+      <div class="stats-container">
+        <div class="stat-item">
+          <div class="stat-number">10x</div>
+          <div class="stat-label">concentration</div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-number">9</div>
+          <div class="stat-label">powerful<br />ingredients</div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-number">1000<span class="mg-label">mg</span></div>
+          <div class="stat-label">of Adaptogens<br />per dose</div>
+        </div>
       </div>
-    </section>
-    <div class="tagline-banner">Incredible Taste And Effects You Can Feel</div>
-  </body>
+
+      <a href="#" class="shop-button">
+        Shop Now
+        <span class="arrow-icon">→</span>
+      </a>
+    </div>
+
+    <div class="hero-image">
+      <img src="../assets/images/hero-section.png" alt="Alcami Products with Ingredients" />
+    </div>
+  </section>
+  <div class="tagline-banner">Incredible Taste And Effects You Can Feel</div>
+</body>
+
 </html>

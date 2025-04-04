@@ -13,68 +13,116 @@
         
         body {
             font-family: 'Arial', sans-serif;
-            /* background-color: #f0f0f0; */
             color: #333;
         }
         
         .header {
-            /* background-color: #eaeaea; */
             padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
-        }
-        
-        .logo {
-            height: 40px;
+            position: relative;
         }
         
         .logo img {
-            height: 100%;
+            height: 40px;
         }
-        
+
         .nav-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
+            flex-grow: 1;
         }
-        
+
         .main-nav {
             display: flex;
             list-style: none;
-            margin-right: 30px;
+            justify-content: center;
+            gap: 25px;
         }
-        
+
         .nav-item {
-            margin: 0 15px;
+            position: relative;
         }
-        
+
         .nav-link {
             text-decoration: none;
             color: #333;
             font-size: 16px;
             transition: color 0.3s;
+            padding: 10px 15px;
         }
-        
+
         .nav-link:hover {
             color: #d9b45b;
         }
-        
-        .dropdown {
-            position: relative;
-            display: inline-block;
+
+        /* Dropdown */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+            min-width: 150px;
+            z-index: 10;
         }
-        
-        .dropdown-icon {
-            margin-left: 5px;
-            font-size: 10px;
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
         }
-        
+
+        .dropdown-content a:hover {
+            background: #f0f0f0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
         .search-icon {
-            margin-right: 20px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
         }
-        
+
+        /* Search Bar */
+        .search-bar {
+            display: none;
+            flex-grow: 1;
+            max-width: 600px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 20px;
+            width: 80%;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 50px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .close-search {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #333;
+        }
+
         .try-button {
             display: inline-flex;
             align-items: center;
@@ -86,16 +134,13 @@
             font-weight: 500;
             font-size: 16px;
             transition: background-color 0.3s;
+            margin-left: 20px;
         }
-        
+
         .try-button:hover {
             background-color: #c9a44b;
         }
-        
-        .arrow-icon {
-            margin-left: 10px;
-        }
-        
+
         .mobile-menu-button {
             display: none;
             background: none;
@@ -103,20 +148,20 @@
             font-size: 24px;
             cursor: pointer;
         }
-        
+
         @media (max-width: 900px) {
             .header {
                 padding: 15px 20px;
             }
-            
+
             .main-nav {
                 display: none;
             }
-            
+
             .search-icon {
                 margin-right: 15px;
             }
-            
+
             .mobile-menu-button {
                 display: block;
                 margin-right: 20px;
@@ -127,45 +172,54 @@
 <body>
     <header class="header">
         <div class="logo">
-            <img src="https://dummyimage.com/150x40/fff/333&text=ALCAMI" alt="Alcami Logo">
+            <img src="../assets/images/Column.png" alt="Alcami Logo">
         </div>
-        
-        <div class="nav-container">
-            <button class="mobile-menu-button">☰</button>
-            
+
+        <div class="nav-container" id="nav-container">
             <ul class="main-nav">
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Home</a>
-                </li>
+                <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link">Shop <span class="dropdown-icon">▼</span></a>
+                    <a href="#" class="nav-link">Shop ▼</a>
+                    
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Elements</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
+                <li class="nav-item"><a href="#" class="nav-link">Elements</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
             </ul>
-            
-            <div class="search-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M21 21L16.65 16.65" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
-            
-            <a href="#" class="try-button">
-                Try Alcami
-                <span class="arrow-icon">→</span>
-            </a>
+        </div>
+
+        <div class="search-icon" id="search-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21 21L16.65 16.65" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+
+        <a href="#" class="try-button">Try Alcami →</a>
+
+        <!-- Search Bar -->
+        <div class="search-bar" id="search-bar">
+            <input type="text" placeholder="Search For Products...">
+            <span class="close-search" id="close-search">✖</span>
         </div>
     </header>
+
+    <script>
+        const searchIcon = document.getElementById("search-icon");
+        const searchBar = document.getElementById("search-bar");
+        const navContainer = document.getElementById("nav-container");
+        const closeSearch = document.getElementById("close-search");
+
+        searchIcon.addEventListener("click", () => {
+            navContainer.style.display = "none"; // Hide nav menu
+            searchBar.style.display = "flex"; // Show search bar
+        });
+
+        closeSearch.addEventListener("click", () => {
+            navContainer.style.display = "flex"; // Show nav menu
+            searchBar.style.display = "none"; // Hide search bar
+        });
+    </script>
 </body>
 </html>
