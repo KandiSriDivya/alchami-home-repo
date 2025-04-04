@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alcami Elements Product Page</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        color: #333;
+        line-height: 1.6;
+        padding: 20px;
+        /* background-color: #fff; */
+      }
+
+      .product-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        gap: 50px;
+      }
+
+      /* Product Gallery */
+      .product-gallery {
+        flex: 1;
+        max-width: 500px;
+      }
+
+      .main-image-container {
+        position: relative;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        height: 530px;
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+      }
+
+      .main-image {
+        max-width: 90%;
+        max-height: 100%;
+        margin-left: 20px;
+        display: block;
+      }
+
+      .inner-image {
+        position: absolute;
+        top: 50%; /* Move it to the center */
+        left: 50%;
+        transform: translate(-50%, -50%); /* Center it */
+        width: 50%;
+      }
+
+      .ingredients {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 30px;
+      }
+
+      .ingredient {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        color: #555;
+      }
+
+      .ingredient img {
+        width: 30px;
+        height: 30px;
+        margin-right: 8px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .ingredient-name {
+        font-weight: 500;
+      }
+
+      .ingredient-benefit {
+        font-size: 10px;
+        color: #777;
+      }
+
+      .ingredient-left {
+        align-self: flex-start;
+      }
+
+      .ingredient-right {
+        align-self: flex-end;
+        text-align: right;
+      }
+
+      .ingredient-right img {
+        order: 2;
+        margin-right: 0;
+        margin-left: 8px;
+      }
+
+      .gallery-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .nav-button {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1px solid #ddd;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .nav-button:hover {
+        background-color: #f0f0f0;
+      }
+
+      .dots {
+        display: flex;
+        gap: 5px;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #ddd;
+        cursor: pointer;
+      }
+
+      .dot.active {
+        background-color: #333;
+      }
+
+      .thumbnails {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+
+      .thumbnail {
+        border-radius: 5px;
+        overflow: hidden;
+        cursor: pointer;
+        border: 1px solid #eee;
+      }
+
+      .thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .thumbnail:hover img {
+        transform: scale(1.05);
+      }
+
+      /* Product Info */
+      .product-info {
+        flex: 1;
+        max-width: 500px;
+      }
+
+      .product-title {
+        font-size: 28px;
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+
+      .rating {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        color: #d9b45b;
+      }
+
+      .stars {
+        display: flex;
+        margin-right: 10px;
+      }
+
+      .reviews-count {
+        color: #777;
+        font-size: 14px;
+      }
+
+      .product-description {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 10px;
+        line-height: 1.6;
+      }
+      .section-title {
+        font-size: 22px;
+        margin-bottom: 15px;
+      }
+
+      /* Flavor Options - Arrange in Row */
+      .flavor-options {
+        display: flex;
+        gap: 20px;
+      }
+
+      .flavor-option {
+        background: #f5f5f5;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        width: 140px;
+        height: 170px; /* Adjust height as needed */
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Ensures proper spacing */
+      }
+
+      /* Radio Buttons */
+      .flavor-radio {
+        display: none;
+      }
+
+      .flavor-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        color: #666;
+      }
+
+      /* Custom Radio Button */
+      .flavor-circle {
+        width: 14px;
+        height: 14px;
+        border: 2px solid #d9b45b;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+      }
+
+      /* Selected Radio Button */
+      .flavor-radio:checked + .flavor-label .flavor-circle::after {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background: #d9b45b;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .flavor-radio:checked + .flavor-label {
+        color: #d9b45b;
+      }
+
+      /* Images */
+      .flavor-image img {
+        width: 100%;
+        max-width: 120px;
+        margin-top: 1px;
+        border-radius: 5px;
+      }
+
+      /* BEST SELLER Tag */
+      .best-seller {
+        position: absolute;
+        bottom: 1px;
+        right: 1px;
+        background: #ff9f43; /* Orange background */
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 0px 10px;
+        border-top-left-radius: 5px;
+        text-transform: uppercase;
+      }
+      .subscription-options {
+        margin-bottom: 20px;
+      }
+
+      .most-popular {
+        background-color: #d9b45b;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        font-weight: 500;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        margin-top: 5%;
+      }
+
+      .subscription-option {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 15px;
+        cursor: pointer;
+        position: relative;
+        width: 500px;
+        transition: border-color 0.3s ease;
+      }
+
+      .subscription-option.selected {
+        border-color: #d9b45b;
+      }
+
+      .option-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .option-title {
+        display: flex;
+        align-items: center;
+      }
+
+      .option-radio {
+        display: none;
+      }
+
+      .option-circle {
+        width: 18px;
+        height: 18px;
+        border: 2px solid #ddd;
+        border-radius: 50%;
+        margin-right: 10px;
+        position: relative;
+      }
+
+      .option-radio:checked + .option-circle {
+        border-color: #d9b45b;
+      }
+
+      .option-radio:checked + .option-circle::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 10px;
+        height: 10px;
+        background-color: #d9b45b;
+        border-radius: 50%;
+      }
+
+      .option-name {
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .option-price {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .current-price {
+        font-weight: 500;
+        font-size: 18px;
+      }
+
+      .original-price {
+        color: #999;
+        text-decoration: line-through;
+        font-size: 16px;
+      }
+
+      .whats-included {
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      .included-options {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+        justify-content: flex-start;
+      }
+
+      .included-option {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 5px;
+
+        text-align: center;
+        font-size: 12px;
+        width: 100px;
+        height: 140px;
+      }
+
+      .included-option img {
+        width: 60px;
+        height: 80px;
+        object-fit: contain;
+        margin: 0 auto 10px;
+        display: block;
+      }
+
+      .included-option-one-time {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 5px;
+        text-align: start;
+        font-size: 12px;
+        width: 250px;
+        height: 140px;
+      }
+
+      .included-option-one-time img {
+        width: 170px;
+        height: 100px;
+        padding-top: 5px;
+        margin-left: 30px;
+      }
+
+      .free-tag {
+        color: #d9b45b;
+        font-weight: 500;
+      }
+
+      .plus-icon {
+        color: #999;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .benefits-list {
+        list-style: none;
+      }
+
+      .benefit-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      .check-icon {
+        color: #6a8d39;
+        margin-right: 8px;
+        flex-shrink: 0;
+        margin-top: 3px;
+      }
+
+      .add-to-cart {
+        display: block;
+        width: 100%;
+        background-color: #6a8d39;
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .add-to-cart:hover {
+        background-color: #5a7d29;
+      }
+
+      .arrow-icon {
+        margin-left: 10px;
+      }
+
+      @media (max-width: 900px) {
+        .product-container {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .product-gallery,
+        .product-info {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="product-container">
+      <!-- Product Gallery -->
+      <div class="product-gallery">
+        <div class="main-image-container">
+          <img
+            src="../assets/images/Products.png"
+            alt="Alcami Elements Package"
+            class="main-image"
+          />
+          <img
+            src="../assets/images/products innerelement.png"
+            alt="Alcami Elements Package"
+            class="inner-image"
+          />
+          <div class="gallery-nav">
+            <button class="nav-button">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15 18L9 12L15 6"
+                  stroke="#333"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+
+            <div class="dots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+
+            <button class="nav-button">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 6L15 12L9 18"
+                  stroke="#333"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="thumbnails">
+          <div class="thumbnail">
+            <img
+              src="https://s3-alpha-sig.figma.com/img/142b/3885/46fbc343ad60f27b0261bb28a287633f?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=dgKPVD-qqD0cImRI2~jtGYOZ80wz5IMefIBph3mY7PRh1Gxk41Q0jeBx~ygDvqUa5MMLjqezziYqg7KFI92r3a2dJAkAkyzfvqTpcAOWaTplyL6tdnBbr3loGv4xs2k-nArU1QnUKu5j9D4xmQYurBfFbaPMxsf89Jn6NFVa1WvsRgEo1rljzdhAqTHvupEF5jpnEarLFfUMa9nrh7IUWiuXUs3YSuPlW3u0R0RHIqvti7XGinCNJQcBBBHWHGu0vGUxwNRFtQTpHbgWpx4JYWkp1cposlXBesRHDPywS8nX7293Dzg5TNKNjqGS87jA2nHZyAz4MigpZV3IUIqM0A__"
+              alt="Alcami Kit"
+              loading="lazy"
+            />
+          </div>
+          <div class="thumbnail">
+            <img
+              src="https://s3-alpha-sig.figma.com/img/e0d3/3687/9a2c2151132b6e6ecbd772c465feab76?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=XPW04d5wFMa8My8J6MoGXKrqsEGP1e4xp0QmrdfJZhtoUvQLggzHCDOA9bHoZVeULi2u0IbIePKaKfA6tJr9ESnp26ONCjuy7lkuiA4pJsTCQZvLqYcDaaqYQ~UWgsNM5vEtkgQf3DIrFfWqGHD2oDhCFcCyQyvhUA7FI94RDvOoUJCCYnzbRdzFmLCrP67orqjpgI8MlZESELq2nmNWt~buR6ON8EXtNL5Wd~aIK7BDD20ed6UTLQNp4w69wi8ZlQKZ672VbD7VfRUst16aKCKH0rOA4ZqkcdrK99iklmd8N8-~53sA4RoawL4P-wj4Uh196axK~p7zXphhrjZH4Q__"
+              alt="Alcami Usage"
+              loading="lazy"
+            />
+          </div>
+          <div class="thumbnail">
+            <img
+              src="https://s3-alpha-sig.figma.com/img/142b/3885/46fbc343ad60f27b0261bb28a287633f?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=dgKPVD-qqD0cImRI2~jtGYOZ80wz5IMefIBph3mY7PRh1Gxk41Q0jeBx~ygDvqUa5MMLjqezziYqg7KFI92r3a2dJAkAkyzfvqTpcAOWaTplyL6tdnBbr3loGv4xs2k-nArU1QnUKu5j9D4xmQYurBfFbaPMxsf89Jn6NFVa1WvsRgEo1rljzdhAqTHvupEF5jpnEarLFfUMa9nrh7IUWiuXUs3YSuPlW3u0R0RHIqvti7XGinCNJQcBBBHWHGu0vGUxwNRFtQTpHbgWpx4JYWkp1cposlXBesRHDPywS8nX7293Dzg5TNKNjqGS87jA2nHZyAz4MigpZV3IUIqM0A__"
+              alt="Alcami Tools"
+              loading="lazy"
+            />
+          </div>
+          <div class="thumbnail">
+            <img
+              src="https://s3-alpha-sig.figma.com/img/7ab5/cf71/3f3148d77a3a26c2e24397b007ffbb5a?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=GpCPRifwE5QtDlVzrWr38620CzpVtXE1Kp-y~2F0y0FVeXtRW-e~oZ37M4ovPa3NfjPse5VTGF9IEzvyiuOOIDssYU76qBNhH4vSZHeu-qpcMAds572TqZE3y98TUFgZRKRRX4j5zPC4n9PaHRcTLwkowMI23~MjwBeckxSGjForjAyOnYH95RDi0pZtSZWD9vGDwXGpxb51VuiySVhPiDSqrSStvp-Gw2I1llxL0aGQhS9G~dIhXSKg6nlwNSSW33IJdDSNtCth8c5Dp3YrV7ILiPrp01eT5ljKuefFi43jmZMClmxBDKo6xxoxeOtpqZfJo27UR9ZY3yQR~fEoaw__"
+              alt="Alcami Detail"
+              loading="lazy"
+            />
+          </div>
+          <div class="thumbnail">
+            <img
+              src="https://s3-alpha-sig.figma.com/img/739d/5522/5ab59d7fa2182fa8b83af6889a9cd4c3?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=BH2BpRqIeakSNegKK3V~aS7ni~krPCI6YlJAulr4J7nv7ILtKtSOKggYN7oLOspUS9YrcLEtKbvbLHwHandQigoJEOU-CCEPdAiYB3YxjzYvQmNCMgJcJSATMqcj4w0gkRQPxuI1toqqEdTinWJNxgJSmozoAc25J9cC6iHcIy8h9Cm0I1MqgATJZl4bf8rHI~wGJ7lDoR09cnbs3XcfukdnjyJCCbwdrQduOYgNFQt137sosuQwkde-ZJhg5zvZO-QakLiqTkm5HI5eBaRNTreGHAkGsdSVgGwoXN0QSG5cl52Lq4fe5UQssxS6lpvM~hU~-9UmZ1KPEqE06FKUXg__"
+              alt="Original Flavor"
+              loading="lazy"
+            />
+          </div>
+          <div class="thumbnail">
+            <img
+              src="https://s3-alpha-sig.figma.com/img/260f/450e/54764072d91c0fc2b5977d5c610dda31?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=FtqHTx16juaBRDAkeIvMOeMijsaOAG-w48jx4sLvMdnqN72pVxw6uYHCSsqr0xb6XLYLrkPQDbvQM0DyOmIHi3o3s9pRSyDqGNKxsTuRTjyoWULFbqt5FHMcVo4L4~~cvtkugGcFnejISuAWTNKx5AFubzsRkezPGcbWRmoZu8pAuqL~glCho4-jpfYXiqSV1w8IB9XK8cBsI2PB9HVlwvCajGAbGMM7N88MO7qq-pvOD7BZSfGJsqfOUIUzmwOJNEJni5ZfoSmtQ4akuIL7gdIzNpO-VpKkSYmo1E6tl3mN8w4c3WSfZpp97wRO3yFYJb~a-v34LUzc5Ermm4uALA__"
+              alt="Matcha Flavor"
+              loading="lazy"
+            />
+          </div>
+          <div class="thumbnail">
+            <img
+              src="https://s3-alpha-sig.figma.com/img/c153/e4b8/7587c2bf78e36b40edf8c057a6657478?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=mFf012qk07-37ZNjyqCu9CaxgwJpZATW5KS89N2lK7Hwd2NbY1AsdaZnfi23ub5LPs7Poh9GFnnAXr4vnWmDH1mifk5lfEwkHinA0K-yvs58Se0uSDLgPQA9TUuwxNR7rtRuQfl8mfld~U422zlV-wwJkghPyU8Y~w3Cmh8YyeZL2JUIbgMyuCeR9KUG7PG3i1k1Kf2iOiG0HYakAIXK24Jsp3YxNT~L-ItQYNKzVKwP9Mu0eZX5H-P0axoXwm8ms5VSpcP-kilkPg2nIehlz0YZlFYZ53HaovkJLTCpCaj25MG28fVvJExq9jwp1jz2Z8~a9ZSb7XDcb1ztKMiIFg__"
+              alt="Cacao Flavor"
+              loading="eager"
+            />
+          </div>
+          <div class="thumbnail">
+            <img
+              src="https://s3-alpha-sig.figma.com/img/8dcd/e422/cc94e8a6d4432443e333add26891bbde?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=TCUKHtC1u1FlPvYYbfHQ4FAzUaFcj17LtIE4pUvlv-2HEjAnczAjqd1F8OQTd855tBoiScdalLb3CNOBXZ1mNdVUAobegrOKWzbxlljpoAZPrU8x85AhSSpqCJZxGXXaGZaDmqxhSZd8lDudhSo9YN4ci6xijivj9LdKK8PnlxnoJ1qA6DVoU5nUpnd0svbywSeqP~HMs-c4OkrqUWbetUheYYgu5cNuyG7x~0xv9nuYS1sL1qT4yBboqmJ0PW4XKrfjDvV06cLnsOkjMogneo5xhQeTTywGK9qVAJ6iaEvzoQilLwN8m-lM8IEvlrhUso1PBlmRl11QKM95LZC07g__"
+              alt="Mix Options"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Info -->
+      <div class="product-info">
+        <h1 class="product-title">Alcami Elements</h1>
+
+        <div class="rating">
+          <div class="stars">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="#d9b45b"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="#d9b45b"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="#d9b45b"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="#d9b45b"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="#d9b45b"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+          </div>
+          <span class="reviews-count">4.7 (999+ reviews)</span>
+        </div>
+
+        <p class="product-description">
+          Discover the ancient wisdom supported by modern science, all within
+          the synergy of Alcami Elements. Designed for those who aspire to
+          elevate every facet of life with awareness and intention.
+        </p>
+
+        <div class="flavor-section">
+          <h3 class="section-title">Choose a Flavor</h3>
+
+          <div class="flavor-options">
+            <!-- Original -->
+            <div class="flavor-option">
+              <input
+                type="radio"
+                id="original"
+                name="flavor"
+                class="flavor-radio"
+                checked
+              />
+              <label for="original" class="flavor-label">
+                <span class="flavor-circle"></span>
+                <span class="flavor-name">Original</span>
+              </label>
+              <div class="flavor-image">
+                <img
+                  src="../assets/images/products innerelement.png"
+                  alt="Original Flavor"
+                />
+              </div>
+              <span class="best-seller">BEST SELLER</span>
+            </div>
+
+            <!-- Matcha -->
+            <div class="flavor-option">
+              <input
+                type="radio"
+                id="matcha"
+                name="flavor"
+                class="flavor-radio"
+              />
+              <label for="matcha" class="flavor-label">
+                <span class="flavor-circle"></span>
+                <span class="flavor-name">Matcha</span>
+              </label>
+              <div class="flavor-image">
+                <img
+                  src="https://s3-alpha-sig.figma.com/img/739d/5522/5ab59d7fa2182fa8b83af6889a9cd4c3?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=BH2BpRqIeakSNegKK3V~aS7ni~krPCI6YlJAulr4J7nv7ILtKtSOKggYN7oLOspUS9YrcLEtKbvbLHwHandQigoJEOU-CCEPdAiYB3YxjzYvQmNCMgJcJSATMqcj4w0gkRQPxuI1toqqEdTinWJNxgJSmozoAc25J9cC6iHcIy8h9Cm0I1MqgATJZl4bf8rHI~wGJ7lDoR09cnbs3XcfukdnjyJCCbwdrQduOYgNFQt137sosuQwkde-ZJhg5zvZO-QakLiqTkm5HI5eBaRNTreGHAkGsdSVgGwoXN0QSG5cl52Lq4fe5UQssxS6lpvM~hU~-9UmZ1KPEqE06FKUXg__"
+                  alt="Matcha Flavor"
+                />
+              </div>
+            </div>
+
+            <!-- Cacao -->
+            <div class="flavor-option">
+              <input
+                type="radio"
+                id="cacao"
+                name="flavor"
+                class="flavor-radio"
+              />
+              <label for="cacao" class="flavor-label">
+                <span class="flavor-circle"></span>
+                <span class="flavor-name">Cacao</span>
+              </label>
+              <div class="flavor-image">
+                <img
+                  src="https://s3-alpha-sig.figma.com/img/c153/e4b8/7587c2bf78e36b40edf8c057a6657478?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=mFf012qk07-37ZNjyqCu9CaxgwJpZATW5KS89N2lK7Hwd2NbY1AsdaZnfi23ub5LPs7Poh9GFnnAXr4vnWmDH1mifk5lfEwkHinA0K-yvs58Se0uSDLgPQA9TUuwxNR7rtRuQfl8mfld~U422zlV-wwJkghPyU8Y~w3Cmh8YyeZL2JUIbgMyuCeR9KUG7PG3i1k1Kf2iOiG0HYakAIXK24Jsp3YxNT~L-ItQYNKzVKwP9Mu0eZX5H-P0axoXwm8ms5VSpcP-kilkPg2nIehlz0YZlFYZ53HaovkJLTCpCaj25MG28fVvJExq9jwp1jz2Z8~a9ZSb7XDcb1ztKMiIFg__"
+                  alt="Cacao Flavor"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="subscription-options">
+          <div class="most-popular">Most Popular</div>
+
+          <div class="subscription-option selected">
+            <div class="option-header">
+              <div class="option-title">
+                <input
+                  type="radio"
+                  id="single-kit"
+                  name="subscription"
+                  class="option-radio"
+                  checked
+                />
+                <span class="option-circle"></span>
+                <label for="single-kit" class="option-name"
+                  >Single Kit Subscription</label
+                >
+              </div>
+
+              <div class="option-price">
+                <span class="current-price">$37 USD</span>
+                <span class="original-price">$46</span>
+              </div>
+            </div>
+
+            <div class="whats-included">What's included:</div>
+
+            <div class="included-options">
+              <div class="included-option">
+                <div>Every 30 Days</div>
+                <img
+                  src="../assets/images/products innerelement.png"
+                  alt="Alcami Package"
+                  style="width: 100%; height: 100%"
+                />
+              </div>
+
+              <div class="included-option-one-time">
+                <div>One Time <span class="free-tag">(Free)</span></div>
+                <div>
+                  <img src="../assets/images/one-time.png" alt="Bottle" />
+                </div>
+              </div>
+            </div>
+
+            <ul class="benefits-list">
+              <li class="benefit-item">
+                <span class="check-icon">✓</span>
+                <span>30 Servings Shipped Monthly</span>
+              </li>
+              <li class="benefit-item">
+                <span class="check-icon">✓</span>
+                <span>Free Golden Kit Gold Bottle + Spoon ($28 Value)</span>
+              </li>
+              <li class="benefit-item">
+                <span class="check-icon">✓</span>
+                <span>Free 60 Days Supply Of Alcami Shilajit ($78 Value)</span>
+              </li>
+              <li class="benefit-item">
+                <span class="check-icon">✓</span>
+                <span>50% OFF Shipping (Over $7-$10 in Savings)</span>
+              </li>
+              <li class="benefit-item">
+                <span class="check-icon">✓</span>
+                <span>Pause Or Cancel Anytime After 3 Months Minimum</span>
+              </li>
+              <li class="benefit-item">
+                <span class="check-icon">✓</span>
+                <span>90 Day Money Back Guarantee*</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="subscription-option">
+            <div class="option-header">
+              <div class="option-title">
+                <input
+                  type="radio"
+                  id="double-kit"
+                  name="subscription"
+                  class="option-radio"
+                />
+                <span class="option-circle"></span>
+                <label for="double-kit" class="option-name"
+                  >Double Kit Subscription</label
+                >
+              </div>
+
+              <div class="option-price">
+                <span class="current-price">$68 USD</span>
+                <span class="original-price">$83</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="subscription-option">
+            <div class="option-header">
+              <div class="option-title">
+                <input
+                  type="radio"
+                  id="try-once"
+                  name="subscription"
+                  class="option-radio"
+                />
+                <span class="option-circle"></span>
+                <label for="try-once" class="option-name">Try Once</label>
+              </div>
+
+              <div class="option-price">
+                <span class="current-price">$46 USD</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="add-to-cart">
+          Add to Cart
+          <span class="arrow-icon">→</span>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Flavor selection
+      const flavorRadios = document.querySelectorAll(".flavor-radio");
+      flavorRadios.forEach((radio) => {
+        radio.addEventListener("change", function () {
+          console.log(`Selected flavor: ${this.id}`);
+        });
+      });
+
+      const subscriptionOptions = document.querySelectorAll(
+        ".subscription-option"
+      );
+      const subscriptionRadios = document.querySelectorAll(".option-radio");
+
+      subscriptionRadios.forEach((radio, index) => {
+        radio.addEventListener("change", function () {
+          subscriptionOptions.forEach((option) => {
+            option.classList.remove("selected");
+          });
+
+          subscriptionOptions[index].classList.add("selected");
+
+          console.log(`Selected subscription: ${this.id}`);
+        });
+      });
+
+      const navButtons = document.querySelectorAll(".nav-button");
+      const dots = document.querySelectorAll(".dot");
+      let currentSlide = 0;
+
+      navButtons[0].addEventListener("click", function () {
+        currentSlide = (currentSlide - 1 + dots.length) % dots.length;
+        updateGallery();
+      });
+
+      navButtons[1].addEventListener("click", function () {
+        currentSlide = (currentSlide + 1) % dots.length;
+        updateGallery();
+      });
+
+      dots.forEach((dot, index) => {
+        dot.addEventListener("click", function () {
+          currentSlide = index;
+          updateGallery();
+        });
+      });
+
+      function updateGallery() {
+        dots.forEach((dot, index) => {
+          if (index === currentSlide) {
+            dot.classList.add("active");
+          } else {
+            dot.classList.remove("active");
+          }
+        });
+
+        // In a real implementation, you would update the main image
+        console.log(`Showing slide: ${currentSlide + 1}`);
+      }
+
+      // Thumbnail click handling
+      const thumbnails = document.querySelectorAll(".thumbnail");
+      thumbnails.forEach((thumbnail, index) => {
+        thumbnail.addEventListener("click", function () {
+          // In a real implementation, you would update the main image
+          console.log(`Clicked thumbnail: ${index + 1}`);
+
+          // Find the appropriate dot index (assuming 8 thumbnails and 4 dots)
+          const dotIndex = Math.floor(index / 2);
+          currentSlide = dotIndex;
+          updateGallery();
+        });
+      });
+
+      // Add to cart button
+      const addToCartButton = document.querySelector(".add-to-cart");
+      addToCartButton.addEventListener("click", function () {
+        // Get selected flavor
+        const selectedFlavor = document.querySelector(
+          ".flavor-radio:checked"
+        ).id;
+
+        // Get selected subscription option
+        const selectedSubscription = document.querySelector(
+          ".option-radio:checked"
+        ).id;
+
+        // In a real implementation, you would add the product to the cart
+        console.log(
+          `Adding to cart: ${selectedFlavor} flavor with ${selectedSubscription} option`
+        );
+        alert("Product added to cart!");
+      });
+
+      // Initialize the page
+      function initPage() {
+        // Set the first subscription option as selected
+        subscriptionOptions[0].classList.add("selected");
+
+        // Set the first dot as active
+        dots[0].classList.add("active");
+      }
+
+      // Call initialization function when the page loads
+      window.addEventListener("load", initPage);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alcami Comparison</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 19.16px;
+        letter-spacing: 0px;
+
+        padding: 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .comparison-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0 60px;
+      }
+
+      .section-title {
+        font-size: 36px;
+        font-weight: 500;
+        color: #333;
+        text-align: center;
+        margin-bottom: 50px;
+        max-width: 800px;
+        line-height: 1.3;
+      }
+
+      .comparison-table {
+        width: 100%;
+        max-width: 900px;
+        border-collapse: collapse;
+      }
+
+      .product-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 20px 10px;
+        height: 180px;
+        /* Fixed height for all product headers */
+        position: relative;
+      }
+
+      .product-image-container {
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+      }
+
+      .product-image {
+        max-width: 80px;
+        max-height: 100%;
+        transition: transform 0.3s ease;
+      }
+
+      .product-selected .product-image {
+        transform: scale(1.1);
+      }
+
+      .product-name {
+        font-size: 12px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-align: center;
+      }
+
+      .benefits-header {
+        text-align: left;
+        padding: 20px 0;
+        font-weight: bold;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .alcami-column {
+        background-color: #f5f5f0;
+      }
+
+      .product-column {
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .product-selected {
+        background-color: #f5f5f0;
+      }
+
+      td {
+        text-align: center;
+        padding: 15px 10px;
+        border-top: 1px solid #e0e0e0;
+        position: relative;
+      }
+
+      td:first-child {
+        text-align: left;
+        font-weight: 500;
+        padding-left: 0;
+      }
+
+      .check-icon {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background-color: #6a8d39;
+        border-radius: 50%;
+        position: relative;
+      }
+
+      .check-icon::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: 6px;
+        height: 10px;
+        border-bottom: 2px solid white;
+        border-right: 2px solid white;
+        margin-top: -2px;
+      }
+
+      .x-icon {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 2px solid #e0e0e0;
+        position: relative;
+      }
+
+      .x-icon::before,
+      .x-icon::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 12px;
+        height: 2px;
+        background-color: #e0e0e0;
+      }
+
+      .x-icon::before {
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+
+      .x-icon::after {
+        transform: translate(-50%, -50%) rotate(-45deg);
+      }
+
+      .gray-check {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 2px solid #e0e0e0;
+        position: relative;
+      }
+
+      .gray-check::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: 6px;
+        height: 10px;
+        border-bottom: 2px solid #999;
+        border-right: 2px solid #999;
+        margin-top: -2px;
+      }
+
+      .try-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #d9b45b;
+        color: #333;
+        padding: 15px 30px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 16px;
+        transition: background-color 0.3s;
+        margin-top: 40px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .try-button:hover {
+        background-color: #c9a44b;
+      }
+
+      .arrow-icon {
+        margin-left: 10px;
+      }
+
+      .dotted-border {
+        border-top: 1px dashed #e0e0e0;
+      }
+
+      /* Selection indicator */
+      .selection-indicator {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: #6a8d39;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .product-selected .selection-indicator {
+        opacity: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="comparison-section">
+      <h2 class="section-title">
+        Why Alcami is the #1 Choice for your Productivity and Performance
+      </h2>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th class="benefits-header">BENEFITS</th>
+            <th class="product-column" data-product="alcami">
+              <div class="product-header product-selected">
+                <div class="selection-indicator"></div>
+                <div class="product-image-container">
+                  <img
+                    src="../assets/images/products innerelement.png"
+                    alt="Alcami Product"
+                    class="product-image"
+                  />
+                </div>
+                <div class="product-name">ALCAMI</div>
+              </div>
+            </th>
+            <th class="product-column" data-product="mudwtr">
+              <div class="product-header">
+                <div class="selection-indicator"></div>
+                <div class="product-image-container">
+                  <img
+                    src="https://s3-alpha-sig.figma.com/img/8eb7/caa1/f28b4947d555b3a763fb6a38b87a095a?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Y06Mz5ilWBOjwCe-BbQnzOtIOyG9aQIwfab-5MsRnGCuNrYEVJhEsL28Np4HuCga3Wpj1inLfHI9Ff1BJSRM~2JY8tq53lsqLIgXps3uJsamQqp8Y7FrUiOhwdaOQDxrvhzxfIAfXYpYHbCtUl8lfzp4ATOSWzhMLJXJCpnElGgYUo6k4ZU2koWY16N5FJOvljrsiRxExRqZivcU1TdiIlRMy297ompBVJKlneyIaKO2BtBoOB6UWtfNdpp-dXXTBc9zQUcWqrE3K7p7ZxKqPin1qIUyP-nqragTYsH1rfDH2b~oh-dGMU1tEbx3GK0JLuWNw1iTmLnVGb4sL8r7zQ__"
+                    alt="MUD/WTR Product"
+                    class="product-image"
+                  />
+                </div>
+                <div class="product-name">MUD/WTR</div>
+              </div>
+            </th>
+            <th class="product-column" data-product="ryze">
+              <div class="product-header">
+                <div class="selection-indicator"></div>
+                <div class="product-image-container">
+                  <img
+                    src="https://s3-alpha-sig.figma.com/img/71bb/6ede/f8bfc5b5d57d30f0c49d24daff1b4c91?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=nPQvzfAmQ~LrmfPw1fOUKb14d-Fp68jFHyWFasTGsOKTTKE0k7ar3pJpV0NnqF8jljzogauh4ekzQNvYbqgJU397ugSUIa1~h3UKJzOcwriorH4YKChAIpxm4sbdFdXbvE-FWCzLsqWgyi~WzjGcsPsUUxXQG1i20Eb6NAnpZN54vhs6KhORj2TuitRL46xXTqsweSL3p9I~8I8zBoxxs9htvG27wkhKLN5IpnYcOjSkJRlVnHh1W4i7PHdDto1dzN4tXbME0C1-3LJx~hx8mBv1d~8n8h4MyYjBB70fV2xcjpgqpEKq3zHyjZYE092pxlpRD1dXAoieBkbR3kWk-g__"
+                    alt="RYZE Product"
+                    class="product-image"
+                  />
+                </div>
+                <div class="product-name">RYZE</div>
+              </div>
+            </th>
+            <th class="product-column" data-product="dose">
+              <div class="product-header">
+                <div class="selection-indicator"></div>
+                <div class="product-image-container">
+                  <img
+                    src="https://s3-alpha-sig.figma.com/img/a89e/02af/3f1b9c36d7df3af8eb3fb72dabada957?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=KtVGEAzIfgLrKd1ZCy3PLGTmjJ00i2ujF45m036JXeFCN5rxQxrL2~KeF6n30g5AZ99yw1FKxiDFUN~ZXQwEm6I5UDjti2bVAukKE5CDhvbJWrEta~dho5V27f9jQkav8Ec6Ss-Wsw936X9MuXLnFPd1qGY6j4C544HEVHH5R21LCEWgbK2DZBWT-iPhNXaE8Do-pPnh67D7rpXe1NZFDMAK9xXL4y~sE3ToCJaNTC2vxjQOM-x0PamTlrBHqSYDYF6vQ-lf3x5JnZ4GhNO4fOUFkVcwkwhSY~P1HJ1zng3feH-CsKz~-aNuVkbRGj5bYUuWdmz7eJyNQG0JYxPSqA__"
+                    alt="Everyday Dose Product"
+                    class="product-image"
+                  />
+                </div>
+                <div class="product-name">EVERYDAY DOSE</div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Potency Concentration</td>
+            <td class="alcami-column">10x</td>
+            <td>1x</td>
+            <td>1x</td>
+            <td>10x</td>
+          </tr>
+          <tr>
+            <td>Extracts Concentrates</td>
+            <td class="alcami-column"><span class="check-icon"></span></td>
+            <td><span class="x-icon"></span></td>
+            <td><span class="x-icon"></span></td>
+            <td><span class="check-icon"></span></td>
+          </tr>
+          <tr>
+            <td>Effects You Can Feel</td>
+            <td class="alcami-column"><span class="check-icon"></span></td>
+            <td><span class="x-icon"></span></td>
+            <td><span class="x-icon"></span></td>
+            <td><span class="x-icon"></span></td>
+          </tr>
+          <tr>
+            <td># of Beneficial Ingredients</td>
+            <td class="alcami-column">9</td>
+            <td>5</td>
+            <td>6</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Incredible Taste</td>
+            <td class="alcami-column"><span class="check-icon"></span></td>
+            <td><span class="x-icon"></span></td>
+            <td><span class="x-icon"></span></td>
+            <td><span class="x-icon"></span></td>
+          </tr>
+          <tr>
+            <td>No Caffeine</td>
+            <td class="alcami-column"><span class="check-icon"></span></td>
+            <td><span class="x-icon"></span></td>
+            <td><span class="x-icon"></span></td>
+            <td><span class="x-icon"></span></td>
+          </tr>
+          <tr>
+            <td>No Starch or Mycellated Oats</td>
+            <td class="alcami-column"><span class="check-icon"></span></td>
+            <td><span class="gray-check"></span></td>
+            <td><span class="x-icon"></span></td>
+            <td><span class="x-icon"></span></td>
+          </tr>
+          <tr>
+            <td>100% Fruiting Body Mushroom</td>
+            <td class="alcami-column"><span class="check-icon"></span></td>
+            <td><span class="gray-check"></span></td>
+            <td><span class="x-icon"></span></td>
+            <td><span class="check-icon"></span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button class="try-button">
+        Try It Risk-Free
+        <span class="arrow-icon">→</span>
+      </button>
+    </section>
+
+    <script>
+      // Product selection functionality
+      const productColumns = document.querySelectorAll(".product-column");
+      const alcamiColumn = document.querySelector(".alcami-column");
+
+      productColumns.forEach((column) => {
+        column.addEventListener("click", function () {
+          // Remove selected class from all columns
+          productColumns.forEach((col) => {
+            col
+              .querySelector(".product-header")
+              .classList.remove("product-selected");
+          });
+
+          // Add selected class to clicked column
+          this.querySelector(".product-header").classList.add(
+            "product-selected"
+          );
+
+          // Get the product name
+          const productName = this.getAttribute("data-product");
+
+          // Highlight the corresponding column cells
+          const tbody = document.querySelector("tbody");
+          const rows = tbody.querySelectorAll("tr");
+
+          rows.forEach((row) => {
+            // Reset all cells
+            const cells = row.querySelectorAll("td");
+            cells.forEach((cell, index) => {
+              if (index > 0) {
+                // Skip the first column (feature names)
+                cell.classList.remove("alcami-column");
+              }
+            });
+
+            // Highlight the selected product column
+            const selectedCell = row.querySelector(
+              `td:nth-child(${Array.from(productColumns).indexOf(this) + 2})`
+            );
+            selectedCell.classList.add("alcami-column");
+          });
+
+          // Update the try button text
+          const tryButton = document.querySelector(".try-button");
+          tryButton.textContent = `Try ${
+            productName.charAt(0).toUpperCase() + productName.slice(1)
+          } Risk-Free →`;
+        });
+      });
+    </script>
+  </body>
+</html>
